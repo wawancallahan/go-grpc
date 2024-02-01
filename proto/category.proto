@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/wawancallahan/go-grpc/pb";
+
+message Category {
+    string name = 1;
+    google.protobuf.Timestamp createdAt = 2;
+    google.protobuf.Timestamp updatedAt = 3;
+}
+
+message RegisterCategoryRequest {
+    string name = 1;
+}
+
+message RegisterCategoryResponse {
+    Category category = 1;
+}
+
+message ListCategoryResponse {
+    repeated Category list = 1;
+}
+
+service CategoryService {
+    rpc Register(RegisterCategoryRequest) returns (RegisterCategoryResponse) {}
+    rpc List(google.protobuf.Empty) returns (ListCategoryResponse) {}
+}
